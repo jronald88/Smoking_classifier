@@ -20,15 +20,15 @@ st.write(f"This page has run {st.session_state.counter} times.")
 # load the model
 # model = load(open("../models/decision_tree_classifier_default_42.sav", "rb"))
 # model = load(open("../models/randomforest_classifier_mejores parametros_42.sav", "rb"))
-model = load(open("../models/KNN_default_42.sav", "rb"))
+model = load(open("../models/random_forest_classsifier_default.sav", "rb"))
 class_dict = {
-    "0": "No Comestible",
-    "1": "comestible"
+    "0": "Non Smoker",
+    "1": "Smoker"
 }
 
 # cargar data original para sacar categorias de variables
 
-data = pd.read_csv('../data/processed/test_data.csv') 
+data = pd.read_csv('../data/processed/X_test.csv') 
 
 # Leer los mapeos desde el archivo .json
 with open('label_encoders.json', 'r') as file:
@@ -49,14 +49,14 @@ def get_unique_values(campo):
 
 # ---------------- SIDEBAR -----------------
 
-st.sidebar.title("Opciones")
-st.sidebar.header('1. Parametros cuantitativos')
+st.sidebar.title("Options")
+st.sidebar.header('1. Quantative Parameters')
 
 cap_d = st.sidebar.slider("Diametro del sombrero (cm)", min_value = 0.38, max_value = 62.9, step = 1.0)
 stem_h = st.sidebar.slider("Altura del pie (cm)", min_value = 0.0, max_value = 33.9, step = 1.0)
 stem_w = st.sidebar.slider("Ancho del pie (mm)", min_value = 10.0, max_value = 100.0, step = 1.0)
 
-st.sidebar.header('2. Parametros cualitativos')
+st.sidebar.header('2. Qualtitative Parameters')
 
 # Crear selectboxes para cada variable categórica
 cap_shape = st.sidebar.selectbox("Forma del sombrero", get_unique_values("cap-shape"))
@@ -78,51 +78,48 @@ season_enc = label_encoders['season'].transform([season])[0]
 
 # --------------- MAIN BODY --------------------------------------
 
-st.header("DATASETAS: Clasificador de setas con Machine Learning")
+st.header("Smokers: Machine Learning Classifier")
 col1, col2 = st.columns([2,2])
 
 with col1:
         st.image('./images/datasetas-logo_sm.jpg', width=400, use_column_width = 'auto')
 
 with col2:
-        st.write("Bienvenido al clasificador de setas. Esta herramienta te ayudará a predecir si una seta es comestible o no basada en ciertas características. Por favor, sigue los siguientes pasos:")
+        st.write("Welcome to a Smoking Classifier page. This tool is intended to help predict whether someone is a smoker based on their body signals. Please follow the next steps:")
 
-with st.expander("Instrucciones"):
-        st.write("Paso 1: Introduce los Parámetros Cuantitativos: En el lado izquierdo de la pantalla, encontrarás una barra lateral con las opciones de entrada. Mueve el deslizador de izquierda a derecha para ajustar los valores.")
-        st.write("Paso 2: Introduce los Parámetros Cualitativos: Debajo de los deslizadores, verás varias cajas de selección (select boxes) para diferentes características cualitativas de la seta. Selecciona una opción para cada característica.")
-        st.write("Paso 3: Realiza la Predicción: Una vez que hayas ingresado todos los parámetros, haz clic en el botón 'Predecir' que se encuentra en el centro de la página. La aplicación procesará la información y mostrará el resultado de la predicción en la pantalla.")
-        st.write("Paso 4: Interpreta el Resultado: La aplicación te mostrará si la seta es 'Comestible' o 'No Comestible' basado en los parámetros que elegiste. Ten en cuenta el aviso.") 
+with st.expander("Instructions"):
+        st.write("Step 1: Introduce the quantitive parameters: one the left of the screen, you will find various sliders to assist you.")
+        st.write("Step 2: Introduce the qualtitative parameters: Underneath the sliders, youll find various categories to select from. Select an option from each.")
+        st.write("Step 3: Make a prediction: Once all parameters have been introduced, click the Predict button in the middle of the page. The application make a prediction and diplay it.")
+        st.write("Step 4: Interpret the result: The application will use the best classifier to make a prediciton whether someone is a smoker or not.") 
 
 with st.container(border=True):
-        st.write("AVISO IMPORTANTE: Esta herramienta es educativa y no debe ser utilizada como única fuente para determinar la comestibilidad de setas. Siempre consulta a un experto en micología antes de consumir setas silvestres.")
+        st.write("IMPORTANT: This is a tool for educational purposes and is by no means intended for professional use.")
 with st.container():
-        st.write("Esperamos que esta guía te sea de ayuda. ¡Disfruta usando el clasificador de setas!")
+        st.write("I hope this has been useful. Enjoy!")
 
 st.divider()
 
-if st.button("PREDECIR"):
+if st.button("Predict"):
   
     prediction = str(model.predict([[cap_d, stem_h, stem_w, cap_shape_enc, gill_color_enc, stem_surface_enc, stem_color_enc, veil_color_enc, spore_print_color_enc, season_enc ]])[0])
     pred_class = class_dict[prediction]
-    st.write("Predicción:", pred_class)
-    st.success('AVISO: Aunque este modelo tiene un 98.7 % de acierto en sus predicciones, no es recomendable comer setas silvestres sin autentico conocimiento del medio ')
+    st.write("Prediction:", pred_class)
+    st.success('IMPORTANT: Bear in mind that this model has an accuracy of approximately 90% on its predictions, it is not 100% accurate!')
     # st.balloons()
 
 st.divider()
 
 # -------------------------------TABS --------------------------------
   
-tab1, tab2, tab3 = st.tabs(["Sobre los datos y el EDA", "Modelos de ML", "Reflexiones y dificultades"])
+tab1, tab2, tab3 = st.tabs(["About the data y the EDA", "Machine Learning Models", "Reflections"])
 
-tab1.write("1. Sobre los datos")
+tab1.write("1. About the data")
 tab1.write('''
-            El dataset original ha sido descargado de la web mushroom.mathematik.uni-marburg.de 
-           y creado por Dennis Wagner , Dominik Heider y Georges Hattab 
-            La informacion del dataset ha sido extraida mediante tecnicads de procesamiento del lenguaje natural 
-           del libro de Patrick Hardin. "Mushrooms & Toadstools. Collins, 2012"
+            The original dataset was downloaded from kaggle.com/kukuroo3/body-signal-of-smoking and uploaded for public use.
            ''')
 tab1.write('''
-           Los datos muestran: 
+           The data shows: 
  - Gran variabilidad: Todas las variables muestran una variabilidad considerable, con desviaciones estándar altas en comparación con sus medias. 
            Esto sugiere que las características físicas de los hongos en el conjunto de datos varían ampliamente.
  - Distribución asimétrica: Las diferencias significativas entre las medianas y las medias, especialmente en stem-width, 

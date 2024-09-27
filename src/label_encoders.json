@@ -1,0 +1,11 @@
+{
+    "cap-shape": {"classes": ["acampanado", "cónico", "plano", "otro", "esférico", "hundido", "convexo"]},     
+    "gill-color": {"classes": ["ocre", "rojo", "indefinido", "gris", "negro", "marrón", "naranja", "rosa", "verde", "purple", "blanco", "amarillo"]}, 
+    "stem-surface": {"classes": ["no tiene", "con surcos", "brillante", "fibrosa", "sedosa", "no hay datos", "sin marcas", "pegajosa", "con escamas"]}, 
+    "stem-color": {"classes": ["ocre", "rojo", "sin color", "gris", "negro", "azul", "marrón", "naranja", "rosa", "verde", "purple", "blanco", "amarillo"]}, 
+    "veil-color": {"classes": ["rojo", "negro", "marrón", "desconocido", "purple", "blanco", "amarillo"]}, 
+    "spore-print-color": {"classes": ["gris", "negro", "marrón", "rosa", "desconocido", "verde", "purple", "blanco"]}, 
+    "season": {"classes": ["otoño", "primavera", "verano", "invierno"]}
+}
+
+
