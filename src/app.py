@@ -117,13 +117,18 @@ tab1, tab2, tab3 = st.tabs(["About the data y the EDA", "Machine Learning Models
 tab1.write("1. About the data")
 tab1.write('''
             The original dataset was downloaded from kaggle.com/kukuroo3/body-signal-of-smoking and uploaded for public use.
+            Health checkup information refers to the general health of employees and dependents aged 40 or older, local 
+            subscribers who are the head of household, and local subscribers aged 40 or older. Screening results and basic 
+            information (gender, age group, trial code, etc.) of 1 million people in each year who have a life transition 
+            period health checkup history that those who have reached the age of 40 and 66 among those subject to general 
+            health checkup It is open data consisting of and examination details (height, weight, total cholesterol, hemoglobin, etc.) 
            ''')
 tab1.write('''
            The data shows: 
- - Gran variabilidad: Todas las variables muestran una variabilidad considerable, con desviaciones estándar altas en comparación con sus medias. 
-           Esto sugiere que las características físicas de los hongos en el conjunto de datos varían ampliamente.
- - Distribución asimétrica: Las diferencias significativas entre las medianas y las medias, especialmente en stem-width, 
-           sugieren que la distribución de los datos podría tener valores atípicos.
+ - High variability: All variables exhibit considerable variability, with high standard deviations relative to their means.
+           
+ - .
+
 Este análisis descriptivo nos da una base para entender la distribución y las características de las variables en el dataset de setas. 
            Es un primer paso crucial antes de proceder con análisis más complejos o modelos predictivos.           
 ''')
@@ -135,26 +140,19 @@ tab1.write('''
            parece lo mas prudente mantener los outliers
    ''')
 tab1.write('''
-Conclusion clave sobre los datos:  
-
- - Ninguna de las caracteristicas por si misma parece determinante de la clase, 
-           pero algunos valores parecen ser mayor factor de determinación que otros, debido al mayor numero de casos. 
-           Ejemplo: ring-type=f; habitat=t; veil-color=w; cap-color=n;  
- - Los datos apuntan a que la determinación procede de combinaciones de distintas variables con ciertos valores. 
-           Por ejemplo; la combinación: spore-print-color=k/n + cap-surface=t + stem-surface=y tiene una alta probabilidad de ser venenosa (p)
            ''')
 
-tab1.write("2. Graficos sobre los datos")
+tab1.write("2. Data graphics")
 with tab1:
-   st.image("./images/output.png", use_column_width = 'auto', caption ="Proporcion de comestibles y no comestibles")
+   st.image("./pictures/smoking_dist.jpg", use_column_width = 'auto', caption ="Distribution of Smokers")
 with tab1:
-   st.image("./images/output_vars.png", use_column_width = 'auto', caption ="Comestibilidad segun atributos")
+   st.image("./pictures/density_rel_BMI_smoking.jpg", use_column_width = 'auto', caption ="Density Relationship BMI against Smokers")
 with tab1:
-   st.image("./images/output_rf_impor.png", use_column_width = 'auto', caption ="")   
+   st.image("./pictures/lmplot_gender_caries_smoking-jpg.png", use_column_width = 'auto', caption ="Supervised Machine Learning Model Comparison")   
 
 
 
-tab2.write("MODELOS DE MACHINE LEARNING")
+tab2.write("MACHINE LEARNING MODELS")
 tab2.write('''
            Como comentamos al principio, nuestro sistema de clasificación estaría basado en los atributos de las setas visibles a simple vista.
 Elegir el modelo adecuado y ajustar sus hiper parámetros son pasos críticos en cualquier proyecto de aprendizaje automático.
