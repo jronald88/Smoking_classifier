@@ -163,10 +163,10 @@ tab2.write('''
 En este proyecto, varios algoritmos de ML han sido testados.
            ''') 
 tab2.write(''' 
-           El uso de un árbol de decisión ha sido correcto como primera opción, pero comparar y mejorar el resultado 
-           con otros modelos como RFs y KNN ha sido esencial para confirmar las validez de sus predicciones
+           The use of a random forest classifier was the correct option after exploring various others. It was imperative to compare with other models like K-Nearest Neighbour and Logistic 
+           Regression, for example, to ensure the best model decision.
         ''')
-tab2.write("MODELO 1: DECISION TREE:")
+tab2.write("MODEL 1: Random Forest Classifier:")
 tab2.write(''' 
            Organiza decisiones y sus posibles consecuencias en una estructura de árbol. 
            Cada nodo interno representa una prueba en una característica (por ejemplo, si una característica es menor o mayor que un valor específico), 
