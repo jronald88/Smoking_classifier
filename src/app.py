@@ -7,7 +7,6 @@ from sklearn.preprocessing import LabelEncoder
 
 st.title("Hello World!")
 
-"""
 st.set_page_config(page_title="Smoking Predictor by Jason Ronald", layout="wide")
 
 # counter 
